@@ -5,11 +5,15 @@
 ## svelte down up props : 
 ### 1. use function handler to call in the child from the parent : 
 ```jsx 
-<ChildComponent value={value} onChange = {(v) => value = v}>
-// ------------------------
+// child
 export let value ;
 export let onChange = (value) => {} ; 
 $: onChange(value);
+// ------------------------
+// parent
+<ChildComponent value={value} onChange = {(v) => value = v}>
+
+
 ```
  ### 2. use bind : 
 ```jsx 

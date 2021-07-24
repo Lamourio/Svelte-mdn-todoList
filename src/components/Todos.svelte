@@ -1,6 +1,7 @@
 <script>
     import FilterButton from "./FilterButton.svelte";
-    import Todo from './Todo.svelte';
+    import Todo from "./Todo.svelte";
+    import MoreActions from "./MoreActions.svelte";
     export let todos = [];
     $: totalTodos = todos.length;
     $: completedTodos = todos.filter((todo) => todo.completed).length;
@@ -17,8 +18,8 @@
         todos = todos.filter((t) => t.id !== todo.id);
     }
     function updateTodo(todo) {
-        const i = todos.findIndex(t => t.id === todo.id);
-        todos[i] = {...todos[i],...todo}
+        const i = todos.findIndex((t) => t.id === todo.id);
+        todos[i] = { ...todos[i], ...todo };
     }
     function addTodo() {
         todos = [
@@ -35,6 +36,11 @@
             : filter === "completed"
             ? todos.filter((t) => t.completed)
             : todos;
+    const checkAllTodos = (completed) =>
+        todos = todos.map((t,i) => ({...t,completed} )) ;
+
+    const removeCompletedTodos = () =>
+        (todos = todos.filter((t) => !t.completed));
 </script>
 
 <!-- Todos.svelte -->
@@ -65,7 +71,7 @@
 
     <!-- ---------seconde solution---------  -->
     <FilterButton bind:filter />
-    
+
     <!-- TodosStatus -->
     <h2 id="list-heading">
         {completedTodos} out of {totalTodos} items completed
@@ -79,7 +85,11 @@
     >
         {#each filterTodos(filter, todos) as todo (todo.id)}
             <li class="todo">
-               <Todo {todo} on:update={e => updateTodo(e.detail)} on:remove = {e => removeTodo(e.detail)}/>
+                <Todo
+                    {todo}
+                    on:update={(e) => updateTodo(e.detail)}
+                    on:remove={(e) => removeTodo(e.detail)}
+                />
             </li>
         {:else}
             <li>Nothing to do here!</li>
@@ -89,8 +99,8 @@
     <hr />
 
     <!-- MoreActions -->
-    <div class="btn-group">
-        <button type="button" class="btn btn__primary">Check all</button>
-        <button type="button" class="btn btn__primary">Remove completed</button>
-    </div>
+    <MoreActions
+    on:checkAll={e => checkAllTodos(e.detail)}
+    on:removeCompleted={removeCompletedTodos}
+  />
 </div>

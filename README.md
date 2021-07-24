@@ -23,7 +23,14 @@ $: onChange(value);
 ```
 
 ### 3. "props-down, events-up" approach : 
-
+```jsx 
+// child 
+import { createEventDispatcher } from "svelte" ;
+const dispatch = createEventDispatcher() ;
+<button on:click={() => dispatch("eventName",data)}/>
+// parent
+<ChildComponent on:eventName={(e) = console.log(e.detail)}>
+```
 
 # svelte app
 

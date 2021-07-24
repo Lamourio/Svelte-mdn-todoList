@@ -3,26 +3,20 @@
     import Todo from "./Todo.svelte";
     import NewTodo from "./NewTodo.svelte"
     import MoreActions from "./MoreActions.svelte";
+    import TodosStatus from './TodosStatus.svelte'
     export let todos = [];
-    $: totalTodos = todos.length;
-    $: completedTodos = todos.filter((todo) => todo.completed).length;
     let newTodoName = "";
-    let newTodoId;
-    $: {
-        if (totalTodos === 0) {
-            newTodoId = 1;
-        } else {
-            newTodoId = Math.max(...todos.map((t) => t.id)) + 1;
-        }
-    }
+    $: newTodoId = todos.length ? Math.max(...todos.map(t => t.id)) + 1 : 1
     function removeTodo(todo) {
         todos = todos.filter((t) => t.id !== todo.id);
+        console.log(todosStatus) ;
+        todosStatus.focus()
     }
     function updateTodo(todo) {
         const i = todos.findIndex((t) => t.id === todo.id);
         todos[i] = { ...todos[i], ...todo };
     }
-    function addTodo() {
+    function addTodo(newTodoName) {
         todos = [
             ...todos,
             { id: newTodoId, name: newTodoName, completed: false },
@@ -42,6 +36,7 @@
 
     const removeCompletedTodos = () =>
         (todos = todos.filter((t) => !t.completed));
+    let todosStatus ;
 </script>
 
 <!-- Todos.svelte -->
@@ -58,9 +53,7 @@
     <FilterButton bind:filter />
 
     <!-- TodosStatus -->
-    <h2 id="list-heading">
-        {completedTodos} out of {totalTodos} items completed
-    </h2>
+    <TodosStatus bind:this={todosStatus} {todos} />
 
     <!-- Todos -->
     <ul

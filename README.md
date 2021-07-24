@@ -22,6 +22,8 @@ $: onChange(value);
 <ChildComponent bind:value />
 ```
 
+### 3. "props-down, events-up" approach : 
+
 
 # svelte app
 

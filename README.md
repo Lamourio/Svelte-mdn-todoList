@@ -4,7 +4,7 @@
 # Note :
 ## svelte down up props : 
 ### 1. use function handler to call in the child from the parent : 
-```javascript 
+```jsx 
 <ChildComponent value={value} onChange = {(v) => value = v}>
 // ------------------------
 export let value ;
@@ -12,7 +12,7 @@ export let onChange = (value) => {} ;
 $: onChange(value);
 ```
  ### 2. use bind : 
-```javascript 
+```jsx 
 <ChildComponent bind:value={value} />
 // or 
 <ChildComponent bind:value />

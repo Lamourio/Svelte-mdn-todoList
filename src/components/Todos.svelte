@@ -1,6 +1,7 @@
 <script>
     import FilterButton from "./FilterButton.svelte";
     import Todo from "./Todo.svelte";
+    import NewTodo from "./NewTodo.svelte"
     import MoreActions from "./MoreActions.svelte";
     export let todos = [];
     $: totalTodos = todos.length;
@@ -46,23 +47,7 @@
 <!-- Todos.svelte -->
 <div class="todoapp stack-large">
     <!-- NewTodo -->
-    <form on:submit|preventDefault={addTodo}>
-        <h2 class="label-wrapper">
-            <label for="todo-0" class="label__lg">
-                What needs to be done?
-            </label>
-        </h2>
-        <input
-            bind:value={newTodoName}
-            type="text"
-            id="todo-0"
-            autocomplete="off"
-            class="input input__lg"
-        />
-        <button type="submit" disabled="" class="btn btn__primary btn__lg">
-            Add
-        </button>
-    </form>
+    <NewTodo autofocus on:addTodo={e => addTodo(e.detail)} />
 
     <!-- Filter -->
 

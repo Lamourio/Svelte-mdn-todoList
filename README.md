@@ -1,6 +1,23 @@
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 
 ---
+# Note :
+## svelte down up props : 
+### 1. use function handler to call in the child from the parent : 
+```javascript 
+<ChildComponent value={value} onChange = {(v) => value = v}>
+// ------------------------
+export let value ;
+export let onChange = (value) => {} ; 
+$: onChange(value);
+```
+ ### 2. use bind : 
+```javascript 
+<ChildComponent bind:value={value} />
+// or 
+<ChildComponent bind:value />
+```
+
 
 # svelte app
 

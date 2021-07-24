@@ -1,5 +1,6 @@
 <script>
     import FilterButton from "./FilterButton.svelte";
+    import Todo from './Todo.svelte';
     export let todos = [];
     $: totalTodos = todos.length;
     $: completedTodos = todos.filter((todo) => todo.completed).length;
@@ -73,34 +74,7 @@
     >
         {#each filterTodos(filter, todos) as todo (todo.id)}
             <li class="todo">
-                <div class="stack-small">
-                    <div class="c-cb">
-                        <input
-                            on:click={() => (todo.completed = !todo.completed)}
-                            type="checkbox"
-                            id="todo-{todo.id}"
-                            checked={todo.completed}
-                        />
-                        <label for="todo-{todo.id}" class="todo-label">
-                            {todo.name}
-                        </label>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn">
-                            Edit <span class="visually-hidden">{todo.name}</span
-                            >
-                        </button>
-                        <button
-                            on:click={() => removeTodo(todo)}
-                            type="button"
-                            class="btn btn__danger"
-                        >
-                            Delete <span class="visually-hidden"
-                                >{todo.name}</span
-                            >
-                        </button>
-                    </div>
-                </div>
+               <Todo {todo}/>
             </li>
         {:else}
             <li>Nothing to do here!</li>

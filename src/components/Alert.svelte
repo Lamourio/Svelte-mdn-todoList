@@ -2,16 +2,16 @@
     import { alert } from '../stores.js'
     import { onDestroy } from 'svelte'
   
-    let alertContent = ''
+    // let alertContent = ''
   
-    const unsubscribe = alert.subscribe(value => alertContent = value)
+    // const unsubscribe = alert.subscribe(value => alertContent = value)
   
-    onDestroy(unsubscribe)
+    // onDestroy(unsubscribe)
   </script>
   
-  {#if alertContent}
-  <div on:click={() => alertContent = ''}>
-    <p>{ alertContent }</p>
+  {#if $alert}
+  <div on:click={() => $alert = ''}>
+    <p>{ $alert }</p>
   </div>
   {/if}
   

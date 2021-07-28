@@ -1,15 +1,15 @@
-<script>
-    import { alert } from "../stores.js";
+<script lang="ts">
+    import { alert } from "../stores";
     import { onDestroy } from "svelte";
     import { fly } from "svelte/transition";
     // let alertContent = ''
     // const unsubscribe = alert.subscribe(value => alertContent = value)
     // onDestroy(unsubscribe)
     export let ms = 3000;
-    let visible;
-    let timeout;
+    let visible: boolean;
+    let timeout: any;
 
-    const onMessageChange = (message, ms) => {
+    const onMessageChange = (message:string, ms:number) => {
         clearTimeout(timeout);
         if (!message) {
             visible = false;

@@ -1,12 +1,13 @@
-<script>
-    export let todo;
-    import { createEventDispatcher, tick } from "svelte";
+<script lang="ts">
+    import type { TodoType } from '../types/todo.type'
+    export let todo:TodoType ;
+    import { createEventDispatcher } from "svelte";
     let editing = false;
     let name = todo.name;
-    import {selectOnFocus,focusOnInit} from "../actions";
+    import { selectOnFocus,focusOnInit } from '../actions'
     let editButtonPressed = false ;
     const dispatch = createEventDispatcher();
-    function update(updatedTodo) {
+    function update(updatedTodo: Partial<TodoType>) {
         todo = { ...todo, ...updatedTodo };
         dispatch("update", todo);
     }
@@ -14,7 +15,6 @@
         name = todo.name;
         editing = false;
     }
-    let nameEl;
     function onSave() {
         update({ name: name });
         editing = false;
@@ -29,7 +29,7 @@
     function onToggle() {
         update({ completed: !todo.completed });
     }
-    const focusEditButton = (node) => editButtonPressed && node.focus()
+    const focusEditButton = (node:HTMLElement) => editButtonPressed && node.focus()
 </script>
 <div class="stack-small">
     {#if editing}
